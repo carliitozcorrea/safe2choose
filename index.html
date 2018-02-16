@@ -11,16 +11,6 @@
     <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="starter-template.css" rel="stylesheet">
 </head>
-<style>
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
-    }
-
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-    {
-        opacity: 0;
-    }
-</style>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -43,68 +33,66 @@
 <div class="container">
     <h1>Safe 2 Choose</h1>
     <div id="app">
-        <transition name="fade">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        <h1>Basic Information</h1>
-                    </div>
-                    <div class="text-right">
-                        <button v-on:click="basicInfoValid = false" :disabled="!basicInfoValid" class="btn btn-info">Editar</button>
-                    </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h1>Basic Information</h1>
                 </div>
-                <div v-show="true" class="panel-body">
-                    <form id="form1" v-on:submit="validateForm">
-                        <div class="form-group">
-                            <label>Hello, welcome to the safe2choose chat, let me introduce myself, I'm Stella, your
-                                safe2choose
-                                bot counselor. First of all are you...? </label>
-                            <select :disabled="basicInfoValid" class="form-control" v-model="genre.selected">
-                                <option disabled value="">Please select your Genre</option>
-                                <option v-for="option in genre.options" v-bind:value="option.value">
-                                    {{ option.text }}
-                                </option>
-                            </select>
-                            <div class="help-block alert-danger"
-                                 v-bind:class="{ 'hidden': !attemptSubmit || !missingGenre }">This field is required.
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                The more information I have, the more I can help you. Don't worry, everything you answer
-                                here is
-                                confidential. How old are you? </label>
-                            <select :disabled="basicInfoValid" class="form-control" v-model="age.selected">
-                                <option disabled value="">Please select your Age</option>
-                                <option v-for="option in age.options" v-bind:value="option.value">
-                                    {{ option.text }}
-                                </option>
-                            </select>
-                            <div class="help-block alert-danger"
-                                 v-bind:class="{ 'hidden': !attemptSubmit || !missingAge }">
-                                This field is required.
-                            </div>
-                            <!--<div class="alert alert-danger">This field is required.</div>-->
-                        </div>
-                        <div class="form-group">
-                            <label>How did you know about safe2choose? </label>
-                            <select :disabled="basicInfoValid" class="form-control" v-model="about.selected">
-                                <option disabled value="">Please select an option</option>
-                                <option v-for="option in about.options" v-bind:value="option.value">
-                                    {{ option.text }}
-                                </option>
-                            </select>
-                            <div class="help-block alert-danger"
-                                 v-bind:class="{ 'hidden': !attemptSubmit || !missingAbout }">This field is required.
-                            </div>
-                        </div>
-                        <button :disabled="basicInfoValid" type="submit" class="btn btn-primary">Siguiente</button>
-                    </form>
-
+                <div class="text-right">
+                    <button v-on:click="basicInfoValid = false" :disabled="!basicInfoValid" class="btn btn-info">
+                        Editar
+                    </button>
                 </div>
             </div>
-        </transition>
+            <div class="panel-body">
+                <form id="form1" v-on:submit="validateForm">
+                    <div class="form-group">
+                        <label>Hello, welcome to the safe2choose chat, let me introduce myself, I'm Stella, your
+                            safe2choose
+                            bot counselor. First of all are you...? </label>
+                        <select :disabled="basicInfoValid" class="form-control" v-model="genre.selected">
+                            <option disabled value="">Please select your Genre</option>
+                            <option v-for="option in genre.options" v-bind:value="option.value">
+                                {{ option.text }}
+                            </option>
+                        </select>
+                        <div class="help-block alert-danger"
+                             v-bind:class="{ 'hidden': !attemptSubmit || !missingGenre }">This field is required.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            The more information I have, the more I can help you. Don't worry, everything you answer
+                            here is
+                            confidential. How old are you? </label>
+                        <select :disabled="basicInfoValid" class="form-control" v-model="age.selected">
+                            <option disabled value="">Please select your Age</option>
+                            <option v-for="option in age.options" v-bind:value="option.value">
+                                {{ option.text }}
+                            </option>
+                        </select>
+                        <div class="help-block alert-danger"
+                             v-bind:class="{ 'hidden': !attemptSubmit || !missingAge }">
+                            This field is required.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>How did you know about safe2choose? </label>
+                        <select :disabled="basicInfoValid" class="form-control" v-model="about.selected">
+                            <option disabled value="">Please select an option</option>
+                            <option v-for="option in about.options" v-bind:value="option.value">
+                                {{ option.text }}
+                            </option>
+                        </select>
+                        <div class="help-block alert-danger"
+                             v-bind:class="{ 'hidden': !attemptSubmit || !missingAbout }">This field is required.
+                        </div>
+                    </div>
+                    <button :disabled="basicInfoValid" type="submit" class="btn btn-success">Save</button>
+                </form>
+            </div>
+        </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -113,18 +101,91 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form id="form2" v-on:submit="validateSecondForm">
+                <form id="form2">
                     <div class="form-group">
                         <label>OK dear, my questions are done, now is your turn. How can I help you? </label>
-                        <select :disabled="!basicInfoValid" class="form-control">
+                        <select :disabled="!basicInfoValid" class="form-control" v-model="question.selected">
                             <option disabled value="">Please select an option</option>
                             <option v-for="option in question.options" v-bind:value="option.value">
                                 {{ option.text }}
                             </option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Siguiente</button>
+                    <div v-show="question.selected == 'more_info'">
+                        <div class="form-group">
+                            <label> What do you want to know? </label>
+                            <select :disabled="!basicInfoValid" class="form-control" v-model="moreInfo.selected">
+                                <option disabled value="">Please select an option</option>
+                                <option v-for="option in moreInfo.options" v-bind:value="option.value">
+                                    {{ option.text }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="alert" v-bind:class="moreinfoResult.class">
+                            {{ moreinfoResult.message }}
+                        </div>
+                        <div class="form-group" v-show="moreInfo.selected != ''">
+                            <input v-on:click="resetPurchase" type="checkbox" id="checkbox"
+                                   v-model="purchase_the_pills">
+                            <label for="checkbox">--OK, I want to purchase the pills.</label>
+                        </div>
+
+                    </div>
+                    <div v-show="question.selected == 'purchase'  || purchase_the_pills == true" class="form-group">
+                        <label>Are the pills for you or for someone else? </label>
+                        <div class="radio">
+                            <label v-show="genre.selected == 'F'">
+                                <input :disabled="genre.selected == 'M'" type="radio" name="for_me" :value="true"
+                                       v-model="for_me"
+                                       v-on:click="related.selected = ''">
+                                For me
+                            </label>
+                            <label>
+                                <input type="radio" name="for_me" :value="false"
+                                       v-model="for_me"
+                                       v-on:click="weeks.selected = ''">
+                                For someone else
+                            </label>
+                        </div>
+
+
+                        <div v-show="for_me">
+                            <div class="form-group">
+                                <label>How many weeks of pregnancy do you have? </label>
+                                <select :disabled="!basicInfoValid" class="form-control" v-model="weeks.selected">
+                                    <option disabled value="">Please select an option</option>
+                                    <option v-for="option in weeks.options" v-bind:value="option.value">
+                                        {{ option.text }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="alert" v-bind:class="weeksResult.class">
+                            {{ weeksResult.message }}
+                        </div>
+
+
+                        <div v-show="!for_me">
+                            <div class="form-group">
+                                <label> How is this person related with you? </label>
+                                <select :disabled="!basicInfoValid" class="form-control" v-model="related.selected">
+                                    <option disabled value="">Please select an option</option>
+                                    <option v-for="option in related.options" v-bind:value="option.value">
+                                        {{ option.text }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div v-show="!for_me && related.selected != ''" class="alert alert-info">
+                            {{ relatedResult }}
+                        </div>
+                    </div>
                 </form>
+                <div v-show="finish" class="jumbotron bg-info">
+                    <h2>Thanks, I'm done here</h2>
+                    <p>Great! I hope I've helped</p>
+                    <p><a class="btn btn-success" href="#" role="button">Try Again!</a></p>
+                </div>
             </div>
         </div>
     </div>

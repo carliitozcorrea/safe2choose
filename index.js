@@ -33,14 +33,60 @@ var app = new Vue({
             ]
 
         },
-
-        question:{
-            selected:'',
-            options:[
-                {text:'I want to purchase the abortion pills',value:'purchase'},
-                {text:'I want to know more about the abortion pills ',value:'moreinfo'},
+        question: {
+            selected: '',
+            options: [
+                {text: 'I want to purchase the abortion pills', value: 'purchase'},
+                {text: 'I want to know more about the abortion pills ', value: 'more_info'},
             ]
-        }
+        },
+        for_me: true,
+        weeks: {
+            selected: '',
+            options: [
+                {
+                    text: '10 weeks or less',
+                    value: '<10',
+
+                }, {
+                    text: '11-12 weeks',
+                    value: '11-12',
+
+                }, {
+                    text: '12 weeks or more',
+                    value: '>12',
+
+                }
+            ]
+        },
+        related: {
+            selected: '',
+            options: [
+                {
+                    text: 'She\'s my friend',
+                    value: 'friend',
+
+                }, {
+                    text: 'She\'s a member of my family',
+                    value: 'family',
+
+                }, {
+                    text: 'She\'s my partner',
+                    value: 'partner',
+
+                }
+            ]
+        },
+
+        moreInfo: {
+            selected: '',
+            options: [
+                {text: 'Are they safe?', value: 'safe'},
+                {text: 'Are they legal?', value: 'legal'}
+            ]
+        },
+        purchase_the_pills: false,
+        finish: false,
     },
     computed: {
         missingGenre: function () {
@@ -51,7 +97,63 @@ var app = new Vue({
         },
         missingAbout: function () {
             return this.about.selected === '';
-        }
+        },
+        weeksResult: function () {
+            if (this.weeks.selected == '<10') {
+                this.finish = true;
+                return {
+                    class: 'alert-success',
+                    message: 'You are still on time to use safely the abortion pills. You can order them in this website. First, please check if we have distribution available in your country.'
+                }
+            } else if (this.weeks.selected == '11-12') {
+                this.finish = true;
+                return {
+                    class: 'alert-warning',
+                    message: 'Is risky to have an abortion with pills at this time. Please contact as soon as possible one of our human counselors to review if you still can consider this option.'
+                }
+            } else if (this.weeks.selected == '>12') {
+                this.finish = true;
+                return {
+                    class: 'alert-danger',
+                    message: 'It is not recommendable for you to have an abortion with pills. At this time is dangerous for your health. You can explore other options. If you need advice with this, please contact one of our human counselors to review your case.'
+                }
+            } else {
+                this.finish = false;
+                return {
+                    class: 'hidden',
+                    message: ''
+                }
+            }
+        },
+        relatedResult: function () {
+            if (this.related.selected != '') {
+                this.finish = true;
+                return 'Before ordering the pills, it will be recommended that she speak with one of our human counselors. She must have the last word. Please contact with them as soon as possible.';
+            } else {
+                this.finish = false;
+                return '';
+            }
+        },
+        moreinfoResult: function () {
+            if (this.moreInfo.selected == 'safe') {
+                this.finish = true;
+                return {
+                    class: 'alert-info',
+                    message: 'Abortion pills are safe if you are in general good health, no more than 10 weeks pregnant and not allergic to the medicines.'
+                }
+            } else if (this.moreInfo.selected == 'legal') {
+                this.finish = true;
+                return {
+                    class: 'alert-info',
+                    message: ' Each country has different legislation about abortion and abortion methods. You must know anyway, that a safe abortion is a right for all women recognized by WHO. We\'ll do as soon as we can to help you, no matter where you are.'
+                }
+            } else {
+                return {
+                    class: 'hidden',
+                    message: ''
+                }
+            }
+        },
     },
     methods: {
         validateForm: function (event) {
@@ -61,8 +163,9 @@ var app = new Vue({
                 this.basicInfoValid = true;
             }
         },
-        validateSecondForm: function (event) {
-            event.preventDefault();
+        resetPurchase: function (event) {
+            this.weeks.selected = '';
+            this.for_me = true;
         }
 
     }
