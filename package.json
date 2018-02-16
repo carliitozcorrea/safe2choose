@@ -11,5 +11,8 @@
     "jquery": "^1.9.1",
     "vue": "^2.5.13",
     "vue-form-generator": "^2.2.0"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
