@@ -2,13 +2,16 @@
   "name": "safe2choose",
   "version": "1.0.0",
   "description": "Safe to Choose Project",
-  "main": "index.js",
+  "main": "app.js",
   "author": "Carlos Sánchez",
   "license": "MIT",
   "private": false,
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
     "jquery": "^1.9.1",
+    "path": "^0.12.7",
     "vue": "^2.5.13",
     "vue-form-generator": "^2.2.0"
   },
